@@ -1,7 +1,8 @@
 class TasksController < ApplicationController
-	before_action :find_params, only [:show, :edit, :update, :destroy]
+	before_action :find_task, only: [:show, :edit, :update, :destroy]
 
 	def index
+		@tasks = Task.all.order("created_at DESC")
 	end
 
 	def show
@@ -18,6 +19,7 @@ class TasksController < ApplicationController
 			redirect_to @task
 		else
 			render 'new'
+		end
 	end
 
 	def edit
@@ -32,11 +34,10 @@ class TasksController < ApplicationController
 	private
 
 	def task_params
-		params_require(:task).permit(:title, :description, :url, :company)
+		params.require(:task).permit(:title, :description, :company, :url)
 	end
 
 	def find_task
 		@task = Task.find(params[:id])
 	end
-
 end

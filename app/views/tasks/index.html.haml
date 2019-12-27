@@ -1,1 +1,6 @@
-%h1 This is the Index Page
+- @tasks.each do |task|
+	%h2= task.title
+	%p= task.description
+
+
+= link_to "New Task", new_task_path
